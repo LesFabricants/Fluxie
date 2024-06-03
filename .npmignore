@@ -1,0 +1,4 @@
+src/
+esbuild.config.js
+tsconfig.json
+.nvmrc
