@@ -184,4 +184,4 @@ if (!environment.production) {
 
 Your redux devtool menu will now show all your store actions, the option `storeName` will be the store instance name there (defaults to the class name if not provided), and every service extending the `Store` class will be its own instance in the dropdown at the top.
 
-![The redux devtool window is opened, showing the store called "Users", in the "action" section, "set users" and "toggle user selection" are shown being called multiple times](assets/devtool.png)
+![The redux devtool window is opened, showing the store called "Users", in the "action" section, "set users" and "toggle user selection" are shown being called multiple times](./assets/devtool.png)

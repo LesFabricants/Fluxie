@@ -2,7 +2,7 @@ import { build } from "esbuild";
 import pkg from "./package.json" with { type: "json" };
 
 build({
-  entryPoints: ["src/main.ts"],
+  entryPoints: ["src/index.ts"],
   outdir: "dist",
   format: "esm",
   bundle: true,

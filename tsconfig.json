@@ -2,6 +2,7 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "es2022",
+    "outDir": "dist",
 
     /* Modules */
     "module": "ESNext",
@@ -11,7 +12,9 @@
 
     /* Type Checking */
     "strict": true,
-    "skipLibCheck": true
+    "declaration": true,
+    "skipLibCheck": true,
+    "emitDeclarationOnly": true
   },
   "exclude": ["node_modules", "dist"]
 }

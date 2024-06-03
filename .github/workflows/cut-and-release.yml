@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: simple
 
   deploy-npm:
@@ -26,7 +26,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          registry-url: https://registry.npmjs.org
       - run: npm install
       - run: npm run build
       - run: npm publish

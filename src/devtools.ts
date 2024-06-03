@@ -8,7 +8,7 @@ interface DevtoolEvent {
   source: string;
 }
 
-let storeDevtoolInstance = {};
+let storeDevtoolInstance: { [key: string]: any } = {};
 export let isDevtoolEnabled = false;
 
 export function enableReduxDevtools() {
@@ -23,6 +23,7 @@ export function initializeReduxDevtools(
   if (!isDevtoolInstalled()) {
     return false;
   }
+  // @ts-ignore
   const newDevtoolInstance = window?.["__REDUX_DEVTOOLS_EXTENSION__"].connect({
     name: storeName,
   });
@@ -55,5 +56,6 @@ export function sendActionToDevtools(
 }
 
 function isDevtoolInstalled() {
+  // @ts-ignore
   return window?.["__REDUX_DEVTOOLS_EXTENSION__"] !== undefined;
 }
