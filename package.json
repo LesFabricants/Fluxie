@@ -15,8 +15,5 @@
   "devDependencies": {
     "esbuild": "^0.21.4",
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "fluxie": "file:fluxie-1.0.0.tgz"
   }
 }
