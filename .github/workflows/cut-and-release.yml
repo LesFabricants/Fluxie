@@ -5,7 +5,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 name: cut-and-release
 
@@ -22,6 +21,7 @@ jobs:
           # this is a built-in strategy in release-please, see "Action Inputs"
           # for more options
           release-type: simple
+          skip-github-pull-request: true
 
   deploy-npm:
     needs: release-please
