@@ -1,3 +1,4 @@
+.github/
 src/
 esbuild.config.js
 tsconfig.json
