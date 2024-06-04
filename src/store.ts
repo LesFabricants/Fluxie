@@ -43,7 +43,6 @@ export class Store<T = any> {
         if (e.newVersion === 1) {
           this.db.createObjectStore("cachedData");
         }
-        this.initializeFromIndexedDB();
       };
     }
     if (isDevtoolEnabled) {
