@@ -28,7 +28,7 @@ export class Store<T = any> {
     this.select$ = this.state.asObservable();
     this.select = toSignal(this.state);
     if (options?.cache) {
-      const request = globalThis.indexedDB.open("store", 1);
+      const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
       request.onerror = () => {
         console.error(`IndexedDB error: ${request.error}`);
       };
