@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/LesFabricants/Fluxie/compare/v1.2.1...v1.3.0) (2024-06-04)
+
+
+### Features
+
+* **pkg:** update required angular version ([2a0d2f7](https://github.com/LesFabricants/Fluxie/commit/2a0d2f78f97f92ec4ece41da95cfbe7c9159cd1f))
+
 ## [1.2.1](https://github.com/LesFabricants/Fluxie/compare/v1.2.0...v1.2.1) (2024-06-04)
 
 
