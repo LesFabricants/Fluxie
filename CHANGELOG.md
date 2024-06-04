@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/LesFabricants/Fluxie/compare/v1.2.0...v1.2.1) (2024-06-04)
+
+
+### Bug Fixes
+
+* **store:** do not initialize in the upgrade event ([8a9b42d](https://github.com/LesFabricants/Fluxie/commit/8a9b42dddbee9382bdb10e9601fce9b1e8bd5b42))
+
 ## [1.2.0](https://github.com/LesFabricants/Fluxie/compare/v1.1.0...v1.2.0) (2024-06-04)
 
 
