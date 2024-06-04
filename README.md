@@ -5,6 +5,14 @@ Super small helper class meant to greatly simplify the creation of a flux archit
 **Warning**  
 **Requires 2Kb of available space, make sure you have the space before installing !**
 
+## Installation
+
+The latest version supports signals, and thus requires a version of angular 16 minimum, other versions can use the lts release that removes signals support
+
+`npm i fluxie` Angular 16+
+
+`npm i fluxie@lts` Other Angular Versions
+
 ## Syntax
 
 > The `store.ts` files is a base class that can be extended by services to add the necessary methods and properties required to handle a centralized state
