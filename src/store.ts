@@ -4,8 +4,6 @@ import {
   isDevtoolEnabled,
   sendActionToDevtools,
 } from "./devtools";
-import { Signal } from "@angular/core";
-import { toSignal } from "@angular/core/rxjs-interop";
 
 interface Options {
   storeName: string;
@@ -16,7 +14,6 @@ export class Store<T = any> {
   private options: Options;
   private state: BehaviorSubject<T>;
   readonly select$: Observable<T>;
-  readonly select: Signal<T | undefined>;
   private db?: IDBDatabase;
 
   constructor(initialState: T, options?: Partial<Options>) {
@@ -26,7 +23,6 @@ export class Store<T = any> {
     };
     this.state = new BehaviorSubject(initialState);
     this.select$ = this.state.asObservable();
-    this.select = toSignal(this.state);
     if (options?.cache) {
       const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
       request.onerror = () => {
