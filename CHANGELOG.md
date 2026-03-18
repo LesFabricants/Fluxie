@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/LesFabricants/Fluxie/compare/v1.3.1...v1.4.0) (2026-03-18)
+
+
+### Features
+
+* disable test tab, as the examples do not pertain to fluxie ([fdd52d7](https://github.com/LesFabricants/Fluxie/commit/fdd52d747fc14bcb1ac29880e06cda202ce30361))
+* lock all internal console logging to a new debug option ([f9e9d9b](https://github.com/LesFabricants/Fluxie/commit/f9e9d9b50b82f864b797da038565b066d1cd9c7a))
+
+
+### Bug Fixes
+
+* **ci:** update npm github action ([#22](https://github.com/LesFabricants/Fluxie/issues/22)) ([0e107f6](https://github.com/LesFabricants/Fluxie/commit/0e107f6c461c33612e2bcc7be831576c321f1497))
+
 ## [1.3.1](https://github.com/LesFabricants/Fluxie/compare/v1.3.0...v1.3.1) (2026-03-18)
 
 
