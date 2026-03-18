@@ -10,6 +10,7 @@ import { toSignal } from "@angular/core/rxjs-interop";
 interface Options {
   storeName: string;
   cache?: boolean;
+  debug?: boolean;
 }
 
 export class Store<T = any> {
@@ -30,9 +31,11 @@ export class Store<T = any> {
     if (options?.cache) {
       if (globalThis.indexedDB) {
         const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
-        request.onerror = () => {
-          console.error(`IndexedDB error: ${request.error}`);
-        };
+        if (this.options.debug) {
+          request.onerror = () => {
+            console.error(`[Fluxie store ${this.options.storeName}] IndexedDB error: ${request.error}`);
+          };
+        }
   
         request.onsuccess = () => {
           this.db = request.result;
@@ -46,7 +49,9 @@ export class Store<T = any> {
           }
         };
       } else {
-        console.warn("fluxie caching is not supported in this environment, disabling");
+        if (this.options.debug) {
+          console.debug("fluxie caching is not supported in this environment, disabling");
+        }
         this.options.cache = false;
       }
     }
