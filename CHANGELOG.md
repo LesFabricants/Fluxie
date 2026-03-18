@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/LesFabricants/Fluxie/compare/v1.3.0...v1.3.1) (2026-03-18)
+
+
+### Bug Fixes
+
+* check for indexedDB support ([e74a100](https://github.com/LesFabricants/Fluxie/commit/e74a10010f46e11c447fa7472a5f05ebd9a1467f))
+* check for indexedDB support ([2b3f944](https://github.com/LesFabricants/Fluxie/commit/2b3f944a6b93ec891e89847084b2552406cf49d8))
+
 ## [1.3.0](https://github.com/LesFabricants/Fluxie/compare/v1.2.1...v1.3.0) (2024-06-04)
 
 
