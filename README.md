@@ -2,9 +2,6 @@
 
 Super small helper class meant to greatly simplify the creation of a flux architecture using angular service, complete with redux devtool and caching support
 
-**Warning**  
-**Requires 2Kb of available space, make sure you have the space before installing !**
-
 ## Installation
 
 The latest version supports signals, and thus requires a version of angular 16 minimum, other versions can use the lts release that removes signals support
@@ -188,6 +185,29 @@ In order to add devtool support add this snippet to your `app.module.ts`, right 
 if (!environment.production) {
   enableReduxDevtools();
 }
+```
+
+## Testing
+
+In order to test a component or service using a store, you can simply setup a default state before all your tests
+
+```ts
+beforeEach(async () => {
+  await TestBed.configureTestingModule({
+    imports: [User],
+    providers: [
+      UsersService,
+      UsersStore,
+      UsersQuery,
+    ],
+  }).compileComponents();
+  
+  const userStore = TestBed.inject(UsersStore);
+  userStore.setState('[Test] setup store state', (defaultState) => ({
+    ...defaultState,
+    ...TEST_STATE_HERE,
+  }));
+});
 ```
 
 Your redux devtool menu will now show all your store actions, the option `storeName` will be the store instance name there (defaults to the class name if not provided), and every service extending the `Store` class will be its own instance in the dropdown at the top.

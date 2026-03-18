@@ -28,22 +28,27 @@ export class Store<T = any> {
     this.select$ = this.state.asObservable();
     this.select = toSignal(this.state);
     if (options?.cache) {
-      const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
-      request.onerror = () => {
-        console.error(`IndexedDB error: ${request.error}`);
-      };
-
-      request.onsuccess = () => {
-        this.db = request.result;
-        this.initializeFromIndexedDB();
-      };
-
-      request.onupgradeneeded = (e) => {
-        this.db = request.result;
-        if (e.newVersion === 1) {
-          this.db.createObjectStore("cachedData");
-        }
-      };
+      if (globalThis.indexedDB) {
+        const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
+        request.onerror = () => {
+          console.error(`IndexedDB error: ${request.error}`);
+        };
+  
+        request.onsuccess = () => {
+          this.db = request.result;
+          this.initializeFromIndexedDB();
+        };
+  
+        request.onupgradeneeded = (e) => {
+          this.db = request.result;
+          if (e.newVersion === 1) {
+            this.db.createObjectStore("cachedData");
+          }
+        };
+      } else {
+        console.warn("fluxie caching is not supported in this environment, disabling");
+        this.options.cache = false;
+      }
     }
     if (isDevtoolEnabled) {
       initializeReduxDevtools(
