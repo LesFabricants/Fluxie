@@ -26,6 +26,7 @@ export function initializeReduxDevtools(
   // @ts-ignore
   const newDevtoolInstance = window?.["__REDUX_DEVTOOLS_EXTENSION__"].connect({
     name: storeName,
+    features: { test: false },
   });
   newDevtoolInstance.init(initialState);
 
