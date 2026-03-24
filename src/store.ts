@@ -15,6 +15,7 @@ interface Options {
 
 export class Store<T = any> {
   private options: Options;
+  private readonly initialState: T;
   private state: BehaviorSubject<T>;
   readonly select$: Observable<T>;
   readonly select: Signal<T | undefined>;
@@ -25,6 +26,7 @@ export class Store<T = any> {
       ...options,
       storeName: options?.storeName ?? this.constructor.name,
     };
+    this.initialState = initialState;
     this.state = new BehaviorSubject(initialState);
     this.select$ = this.state.asObservable();
     this.select = toSignal(this.state);
@@ -103,5 +105,9 @@ export class Store<T = any> {
     this.db!.transaction("cachedData", "readwrite")
       .objectStore("cachedData")
       .put(state, this.options.storeName);
+  }
+
+  public reset() {
+    this.setState('reset', () => this.initialState);
   }
 }
