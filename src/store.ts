@@ -1,26 +1,18 @@
 import { BehaviorSubject, distinctUntilChanged, map, Observable } from "rxjs";
-import {
-  initializeReduxDevtools,
-  isDevtoolEnabled,
-  sendActionToDevtools,
-} from "./devtools";
-import { computed, Signal } from "@angular/core";
+import { computed, inject, Injector, Signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
-
-interface Options {
-  storeName: string;
-  cache?: boolean;
-  debug?: boolean;
-}
+import type { StoreOptions } from "./type";
 
 export class Store<T = any> {
-  private options: Options;
+  private options: StoreOptions;
   private readonly initialState: T;
   private state: BehaviorSubject<T>;
   readonly select$: Observable<T>;
   readonly select: Signal<T>;
-  private db?: IDBDatabase;
 
+  private readonly injector = inject(Injector);
+
+  constructor(initialState: T, options: StoreOptions) {
   constructor(initialState: T, options?: Partial<Options>) {
     this.options = {
       ...options,
@@ -29,52 +21,16 @@ export class Store<T = any> {
     this.initialState = initialState;
     this.state = new BehaviorSubject(initialState);
     this.select$ = this.state.asObservable();
-    this.select = toSignal(this.state, { requireSync: true });
-    if (options?.cache) {
-      if (globalThis.indexedDB) {
-        const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
-        if (this.options.debug) {
-          request.onerror = () => {
-            console.error(`[Fluxie store ${this.options.storeName}] IndexedDB error: ${request.error}`);
-          };
-        }
-  
-        request.onsuccess = () => {
-          this.db = request.result;
-          this.initializeFromIndexedDB();
-        };
-  
-        request.onupgradeneeded = (e) => {
-          this.db = request.result;
-          if (e.newVersion === 1) {
-            this.db.createObjectStore("cachedData");
-          }
-        };
-      } else {
-        if (this.options.debug) {
-          console.debug("fluxie caching is not supported in this environment, disabling");
-        }
-        this.options.cache = false;
-      }
-    }
-    if (isDevtoolEnabled) {
-      initializeReduxDevtools(
-        this.options.storeName,
-        this.state,
-        this.state.getValue()
-      );
-    }
+    this.select = toSignal(this.state, { injector: this.injector, requireSync: true });
+
+    this.options.plugins?.forEach(p => p.onInit?.(this.options, this.state, initialState));
   }
 
   public setState(actionName: string, mutationFn: (state: T) => T) {
     const newState = mutationFn(this.state.getValue());
     this.state.next(newState);
-    if (this.options?.cache) {
-      this.sendToIndexedDB(this.state.getValue());
-    }
-    if (isDevtoolEnabled) {
-      sendActionToDevtools(this.options.storeName, actionName, newState);
-    }
+
+    this.options.plugins?.forEach(p => p.onSetState?.(actionName, newState));
   }
 
   public slice$<K>(projector: (state: T) => K): Observable<K> {
@@ -83,28 +39,6 @@ export class Store<T = any> {
 
   public slice<K>(projector: (state: T) => K): Signal<K> {
     return computed(() => projector(this.select()));
-  }
-
-  private async initializeFromIndexedDB(): Promise<any> {
-    const request = this.db!.transaction("cachedData")
-      .objectStore("cachedData")
-      .get(this.options.storeName);
-
-    request.onsuccess = () => {
-      const data = request.result as T;
-
-      if (data) {
-        this.state.next(data);
-      } else {
-        this.sendToIndexedDB(this.state.getValue());
-      }
-    };
-  }
-
-  private async sendToIndexedDB(state: T) {
-    this.db!.transaction("cachedData", "readwrite")
-      .objectStore("cachedData")
-      .put(state, this.options.storeName);
   }
 
   public reset() {

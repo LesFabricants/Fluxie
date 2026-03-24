@@ -1,2 +1,2 @@
 export { Store } from "./store";
-export { enableReduxDevtools, isDevtoolEnabled } from "./devtools";
+export { FLUXIE_CONFIG } from "./config";
