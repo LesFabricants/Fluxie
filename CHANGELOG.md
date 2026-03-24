@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.0](https://github.com/LesFabricants/Fluxie/compare/v1.6.0...v2.0.0) (2026-03-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* add a plugin setup, and move cache and devtool to it ([#28](https://github.com/LesFabricants/Fluxie/issues/28))
+
+### Features
+
+* add a plugin setup, and move cache and devtool to it ([#28](https://github.com/LesFabricants/Fluxie/issues/28)) ([1ae189e](https://github.com/LesFabricants/Fluxie/commit/1ae189e4c75b71c44c4fa7f3fd5a72e989e2df14))
+* support global configuration ([#30](https://github.com/LesFabricants/Fluxie/issues/30)) ([4a22cf3](https://github.com/LesFabricants/Fluxie/commit/4a22cf37b02d2ad04316e7a8bcc9a40e611d0a02))
+* update documentation ([#32](https://github.com/LesFabricants/Fluxie/issues/32)) ([8c68b3a](https://github.com/LesFabricants/Fluxie/commit/8c68b3a27d5e0009876ab817dbdd4e524d17af8f))
+
+
+### Bug Fixes
+
+* **ci:** update npm publishing workflow ([#31](https://github.com/LesFabricants/Fluxie/issues/31)) ([100c72d](https://github.com/LesFabricants/Fluxie/commit/100c72d74c074503dc9a4106bf3e8006f905621d))
+
 ## [1.6.0](https://github.com/LesFabricants/Fluxie/compare/v1.5.0...v1.6.0) (2026-03-24)
 
 
