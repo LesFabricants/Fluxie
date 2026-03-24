@@ -1,6 +1,6 @@
 # Fluxie
 
-Super small helper class meant to greatly simplify the creation of a flux architecture using angular service, complete with redux devtool and caching support
+Super small helper class meant to greatly simplify the creation of a flux architecture using angular service, complete with a plugin system for devtools and caching support
 
 ## Installation
 
@@ -23,7 +23,7 @@ interface UsersState {
 @Injectable({ providedIn: "root" })
 export class UsersService extends Store<UsersState> {
   constructor() {
-    super({ users: [], selection: [] }, { cache: true, storeName: "Users" });
+    super({ users: [], selection: [] }, { storeName: "Users" });
   }
 }
 ```
@@ -33,11 +33,106 @@ export class UsersService extends Store<UsersState> {
 - `initialState`
   the initial state of the store
 
-- `options` (optional)
+- `options` (required)
   - `storeName`
     name to use for the store
-  - `cache`
-    a boolean value, if true, enables the caching of the state via IndexedDB
+  - `debug`
+    a boolean value, if true, enables debug logging
+  - `plugins`
+    an array of plugins to extend store behavior (see [Plugins](#plugins))
+
+## API
+
+### `select`
+
+A `Signal<T>` that holds the current state.
+
+### `select$`
+
+An `Observable<T>` of the current state.
+
+### `setState(actionName, mutationFn)`
+
+Updates the state. `mutationFn` receives the current state and returns the new state.
+
+```ts
+this.setState("set users", (state) => ({ ...state, users }));
+```
+
+### `slice(projector)`
+
+Returns a `Signal<K>` derived from a slice of the state. Useful to avoid recomputing when unrelated parts of the state change.
+
+```ts
+readonly users = this.slice(state => state.users);
+```
+
+### `slice$(projector)`
+
+Returns an `Observable<K>` derived from a slice of the state, with `distinctUntilChanged` applied.
+
+```ts
+readonly users$ = this.slice$(state => state.users);
+```
+
+### `reset()`
+
+Resets the state back to `initialState`.
+
+```ts
+this.reset();
+```
+
+## Plugins
+
+Fluxie's caching and devtool features are opt-in plugins passed via the `plugins` option.
+
+### Cache plugin
+
+Persists the state to IndexedDB and restores it on init.
+
+```ts
+import { cachePlugin } from "fluxie";
+
+super(initialState, {
+  storeName: "Users",
+  plugins: [cachePlugin()],
+});
+```
+
+### Redux devtools plugin
+
+Connects the store to the Redux DevTools browser extension.
+
+```ts
+import { reduxDevtoolsPlugin } from "fluxie";
+
+super(initialState, {
+  storeName: "Users",
+  plugins: [reduxDevtoolsPlugin()],
+});
+```
+
+The `storeName` option will be the store instance name in the devtools dropdown, and every service extending the `Store` class will be its own instance there.
+
+## Global configuration
+
+You can provide a global `FluxieConfig` that applies to all stores in your application via the `FLUXIE_CONFIG` injection token. Per-store `plugins` are merged with global ones.
+
+```ts
+import { FLUXIE_CONFIG, cachePlugin, reduxDevtoolsPlugin } from "fluxie";
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    {
+      provide: FLUXIE_CONFIG,
+      useValue: {
+        plugins: [reduxDevtoolsPlugin()],
+      },
+    },
+  ],
+});
+```
 
 ## Examples
 
@@ -52,7 +147,7 @@ interface UsersState {
 @Injectable({ providedIn: "root" })
 export class UsersService extends Store<UsersState> {
   constructor() {
-    super({ users: [], selection: [] });
+    super({ users: [], selection: [] }, { storeName: "Users" });
   }
 
   users = computed(() => {
@@ -177,16 +272,6 @@ Note: You are free to organize this however you want, although the recommended o
 
   - in the example above, this would contain setUsers, updateUser, toggleUserSelection and emptySelection
 
-## Devtool support
-
-In order to add devtool support add this snippet to your `app.module.ts`, right after your imports:
-
-```ts
-if (!environment.production) {
-  enableReduxDevtools();
-}
-```
-
 ## Testing
 
 In order to test a component or service using a store, you can simply setup a default state before all your tests
@@ -201,7 +286,7 @@ beforeEach(async () => {
       UsersQuery,
     ],
   }).compileComponents();
-  
+
   const userStore = TestBed.inject(UsersStore);
   userStore.setState('[Test] setup store state', (defaultState) => ({
     ...defaultState,
@@ -209,5 +294,3 @@ beforeEach(async () => {
   }));
 });
 ```
-
-Your redux devtool menu will now show all your store actions, the option `storeName` will be the store instance name there (defaults to the class name if not provided), and every service extending the `Store` class will be its own instance in the dropdown at the top.
