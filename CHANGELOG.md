@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/LesFabricants/Fluxie/compare/v2.0.4...v2.1.0) (2026-03-24)
+
+
+### Features
+
+* **core:** update to node 24 ([f7f9d36](https://github.com/LesFabricants/Fluxie/commit/f7f9d363e98890c68381f0a93a232824841166a6))
+
 ## [2.0.4](https://github.com/LesFabricants/Fluxie/compare/v2.0.3...v2.0.4) (2026-03-24)
 
 
