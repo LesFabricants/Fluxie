@@ -1,10 +1,10 @@
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, distinctUntilChanged, map, Observable } from "rxjs";
 import {
   initializeReduxDevtools,
   isDevtoolEnabled,
   sendActionToDevtools,
 } from "./devtools";
-import { Signal } from "@angular/core";
+import { computed, Signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 interface Options {
@@ -73,6 +73,14 @@ export class Store<T = any> {
     if (isDevtoolEnabled) {
       sendActionToDevtools(this.options.storeName, actionName, newState);
     }
+  }
+
+  public slice$<K>(projector: (state: T) => K): Observable<K> {
+    return this.state.pipe(map(projector), distinctUntilChanged());
+  }
+
+  public slice<K>(projector: (state: T) => K): Signal<K> {
+    return computed(() => projector(this.select()));
   }
 
   private async initializeFromIndexedDB(): Promise<any> {
