@@ -1,6 +1,7 @@
 import { BehaviorSubject, distinctUntilChanged, map, Observable } from "rxjs";
 import { computed, inject, Injector, Signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { FLUXIE_CONFIG } from "./config";
 import type { StoreOptions } from "./type";
 
 export class Store<T = any> {
@@ -13,10 +14,14 @@ export class Store<T = any> {
   private readonly injector = inject(Injector);
 
   constructor(initialState: T, options: StoreOptions) {
-  constructor(initialState: T, options?: Partial<Options>) {
+    const globalConfig = inject(FLUXIE_CONFIG, { optional: true });
     this.options = {
+      ...globalConfig,
       ...options,
-      storeName: options?.storeName ?? this.constructor.name,
+      plugins: [
+        ...(globalConfig?.plugins ?? []),
+        ...(options?.plugins ?? []),
+      ],
     };
     this.initialState = initialState;
     this.state = new BehaviorSubject(initialState);
