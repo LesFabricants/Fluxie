@@ -61,7 +61,9 @@ export function cachePlugin<T>(): StorePlugin<T> {
       }
     },
     onSetState(actionName, newState) {
-      sendToIndexedDB(newState);
+      if (db) {
+        sendToIndexedDB(newState);
+      }
     }
   };
 }
