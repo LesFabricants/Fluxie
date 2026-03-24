@@ -2,7 +2,7 @@
   "name": "fluxie",
   "description": "Small helper class to easily implement Flux architecture using angular service, complete with redux devtool and caching support",
   "authors": "Anthony Lenglet",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "type": "module",
   "main": "dist/index.js",
   "author": {
