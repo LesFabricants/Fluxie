@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/LesFabricants/Fluxie/compare/v1.5.0...v1.6.0) (2026-03-24)
+
+
+### Features
+
+* prevent signal from being undefined ([#26](https://github.com/LesFabricants/Fluxie/issues/26)) ([e3bb5fa](https://github.com/LesFabricants/Fluxie/commit/e3bb5faf85296a5a632a51ba805b83bedc0a7cf8))
+
 ## [1.5.0](https://github.com/LesFabricants/Fluxie/compare/v1.4.0...v1.5.0) (2026-03-24)
 
 
