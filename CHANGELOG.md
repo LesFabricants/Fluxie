@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/LesFabricants/Fluxie/compare/v2.0.1...v2.0.2) (2026-03-24)
+
+
+### Bug Fixes
+
+* cache attempting to send data even if not set ([#36](https://github.com/LesFabricants/Fluxie/issues/36)) ([f28b002](https://github.com/LesFabricants/Fluxie/commit/f28b002cf5bbbbae46464d79ca8749e3907ecf0d))
+
 ## [2.0.1](https://github.com/LesFabricants/Fluxie/compare/v2.0.0...v2.0.1) (2026-03-24)
 
 
