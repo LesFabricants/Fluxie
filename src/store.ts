@@ -18,7 +18,7 @@ export class Store<T = any> {
   private readonly initialState: T;
   private state: BehaviorSubject<T>;
   readonly select$: Observable<T>;
-  readonly select: Signal<T | undefined>;
+  readonly select: Signal<T>;
   private db?: IDBDatabase;
 
   constructor(initialState: T, options?: Partial<Options>) {
@@ -29,7 +29,7 @@ export class Store<T = any> {
     this.initialState = initialState;
     this.state = new BehaviorSubject(initialState);
     this.select$ = this.state.asObservable();
-    this.select = toSignal(this.state);
+    this.select = toSignal(this.state, { requireSync: true });
     if (options?.cache) {
       if (globalThis.indexedDB) {
         const request = globalThis.indexedDB.open("__FLUXIE_STORE", 1);
