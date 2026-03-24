@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/LesFabricants/Fluxie/compare/v2.0.2...v2.0.3) (2026-03-24)
+
+
+### Bug Fixes
+
+* **ci:** set registry url outside of setup-node ([#38](https://github.com/LesFabricants/Fluxie/issues/38)) ([99fefad](https://github.com/LesFabricants/Fluxie/commit/99fefad3d32d43afaf71535ef805c26863b00386))
+
 ## [2.0.2](https://github.com/LesFabricants/Fluxie/compare/v2.0.1...v2.0.2) (2026-03-24)
 
 
