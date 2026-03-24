@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/LesFabricants/Fluxie/compare/v1.4.0...v1.5.0) (2026-03-24)
+
+
+### Features
+
+* add `slice$` and `slice` methods ([#23](https://github.com/LesFabricants/Fluxie/issues/23)) ([6ef05eb](https://github.com/LesFabricants/Fluxie/commit/6ef05ebc57001bbb3f638f582ee4dca25f0f2584))
+* add the `reset` method ([#25](https://github.com/LesFabricants/Fluxie/issues/25)) ([33cd1d5](https://github.com/LesFabricants/Fluxie/commit/33cd1d5e3473bc4f4df33532c7f92e3f08ea499c))
+
 ## [1.4.0](https://github.com/LesFabricants/Fluxie/compare/v1.3.1...v1.4.0) (2026-03-18)
 
 
