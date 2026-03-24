@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.4](https://github.com/LesFabricants/Fluxie/compare/v2.0.3...v2.0.4) (2026-03-24)
+
+
+### Bug Fixes
+
+* **ci:** add logging to the npm-publish workflow ([1071105](https://github.com/LesFabricants/Fluxie/commit/107110533ed445a39257133058a68aec52b52056))
+
 ## [2.0.3](https://github.com/LesFabricants/Fluxie/compare/v2.0.2...v2.0.3) (2026-03-24)
 
 
