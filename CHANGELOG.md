@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/LesFabricants/Fluxie/compare/v2.0.0...v2.0.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* **ci:** update the npm publishing workflow to use OIDC ([#33](https://github.com/LesFabricants/Fluxie/issues/33)) ([be9159d](https://github.com/LesFabricants/Fluxie/commit/be9159dc670b9a26fb38e90a7de7a244cfc9cd1d))
+* export the plugins and types directly from the index file ([#35](https://github.com/LesFabricants/Fluxie/issues/35)) ([41d5900](https://github.com/LesFabricants/Fluxie/commit/41d5900dd469840fc15f71cb4745d2712dfd3da8))
+
 ## [2.0.0](https://github.com/LesFabricants/Fluxie/compare/v1.6.0...v2.0.0) (2026-03-24)
 
 
